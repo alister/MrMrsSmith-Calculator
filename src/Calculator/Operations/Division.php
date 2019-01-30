@@ -4,7 +4,7 @@ namespace App\Calculator\Operations;
 
 use App\Calculator\Calculatable;
 
-class Division implements Calculatable
+class Division extends Calculatable
 {
     public static function getName(): string
     {
@@ -19,10 +19,5 @@ class Division implements Calculatable
     public function calculate(array $parameters)
     {
         return $parameters[0] / $parameters[1];
-    }
-
-    public function match(string $name): bool
-    {
-        return $name === self::getName();
     }
 }

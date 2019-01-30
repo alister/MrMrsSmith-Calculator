@@ -4,7 +4,7 @@ namespace App\Calculator\Operations;
 
 use App\Calculator\Calculatable;
 
-class Subtraction implements Calculatable
+class Subtraction extends Calculatable
 {
     public static function getName(): string
     {
@@ -21,8 +21,4 @@ class Subtraction implements Calculatable
         return $parameters[0] - $parameters[1];
     }
 
-    public function match(string $name): bool
-    {
-        return $name === self::getName();
-    }
 }

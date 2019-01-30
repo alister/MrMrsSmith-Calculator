@@ -2,11 +2,15 @@
 
 namespace App\Calculator;
 
-interface Calculatable
+abstract class Calculatable
 {
-    public static function getName(): string;
-    public static function getDisplayOperation(): string;
+    abstract public static function getName(): string;
+    abstract public static function getDisplayOperation(): string;
 
-    public function calculate(array $parameters);
-    public function match(string $name): bool;
+    abstract public function calculate(array $parameters);
+
+    public function match(string $name): bool
+    {
+        return $name === static::getName();
+    }
 }

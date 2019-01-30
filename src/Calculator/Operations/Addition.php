@@ -4,7 +4,7 @@ namespace App\Calculator\Operations;
 
 use App\Calculator\Calculatable;
 
-class Addition implements Calculatable
+class Addition extends Calculatable
 {
     public static function getName(): string
     {
@@ -19,10 +19,5 @@ class Addition implements Calculatable
     public function calculate(array $parameters)
     {
         return array_sum($parameters);
-    }
-
-    public function match(string $name): bool
-    {
-        return $name === self::getName();
     }
 }
