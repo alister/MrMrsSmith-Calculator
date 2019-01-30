@@ -20,6 +20,7 @@ class Addition implements Calculatable
     {
         return 0;
     }
+
     public function match(string $name): bool
     {
         return false;
