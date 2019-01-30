@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Calculator\OperatorList;
+use App\Form\CalcType;
+use App\Model\Calculation;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,7 +19,6 @@ class Calculator extends AbstractController
 
     public function __construct(OperatorList $operators)
     {
-        
         #dd($operators);
         #foreach ($operators as $operator) {
         #    dump($operator);
@@ -27,9 +28,15 @@ class Calculator extends AbstractController
 
     public function __invoke(): Response
     {
+        $calc = new Calculation($this->operators);
+        $form = $this->createForm(CalcType::class, $calc);
+
         return $this->render(
             'calculator.html.twig', 
-            ['operators' => $this->operators]
+            [
+                'form' => $form->createView(),
+                'operators' => $this->operators
+            ]
         );
     }
 }
