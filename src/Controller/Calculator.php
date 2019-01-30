@@ -49,7 +49,7 @@ class Calculator extends AbstractController
             [
                 'form' => $form->createView(),
                 'operators' => $this->operators,
-                'result' => $result,
+                'result' => $result ?? [],
             ]
         );
     }

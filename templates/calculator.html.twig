@@ -6,7 +6,7 @@
             <h1 class="display-6 font-weight-normal">Hello Mr &amp; Mrs Smith.</h1>
             {#<p class="lead font-weight-normal">And an even wittier subheading to boot. Jumpstart your marketing efforts with this example based on Apple's marketing pages.</p>#}
 
-            {% if result is defined %}
+            {% if result is defined and result %}
                 <p>
                     The result of {{ result.variable_a }} {{ result.operator }} {{ result.variable_b }} is <strong>{{ result.calculationResult }}</strong>.
                 </p>
