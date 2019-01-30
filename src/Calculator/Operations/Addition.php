@@ -18,7 +18,7 @@ class Addition implements Calculatable
 
     public function calculate(array $parameters)
     {
-        return 0;
+        return array_sum($parameters);
     }
 
     public function match(string $name): bool
