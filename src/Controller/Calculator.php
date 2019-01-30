@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Calculator\OperatorList;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -11,15 +12,24 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class Calculator extends AbstractController
 {
+    /** @var \App\Calculator\OperatorList */
+    private $operators;
+
     public function __construct(OperatorList $operators)
     {
-        dd($operators);
-        foreach ($operators as $operator) {
-            dump($operator);
-        }
+        
+        #dd($operators);
+        #foreach ($operators as $operator) {
+        #    dump($operator);
+        #}
+        $this->operators = $operators;
     }
 
-    public function __invoke()
+    public function __invoke(): Response
     {
+        return $this->render(
+            'calculator.html.twig', 
+            ['operators' => $this->operators]
+        );
     }
 }
