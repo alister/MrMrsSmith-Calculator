@@ -5,11 +5,24 @@
         <div class="col-md-5 p-lg-5 mx-auto my-5">
             <h1 class="display-6 font-weight-normal">Hello Mr &amp; Mrs Smith.</h1>
             {#<p class="lead font-weight-normal">And an even wittier subheading to boot. Jumpstart your marketing efforts with this example based on Apple's marketing pages.</p>#}
+
+            {% if result is defined %}
+                <p>
+                    The result of {{ result.variable_a }} {{ result.operator }} {{ result.variable_b }} is <strong>{{ result.calculationResult }}</strong>.
+                </p>
+            {% endif %}
             
-            <p>{{ dump(operators) }}</p>
             <p>
-                {{ form(form) }}
+                {{ form_start(form) }}
+                {{ form_errors(form) }}
+
+                {{ form_widget(form.variable_a) }}
+                {{ form_widget(form.operation) }}
+                {{ form_widget(form.variable_b) }}
+
                 <input type="submit" class="btn" value="Calculate result" />
+            {{ form_end(form) }}                
+                
             </p>
         </div>
         <div class="product-device shadow-sm d-none d-md-block"></div>

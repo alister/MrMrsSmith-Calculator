@@ -2,8 +2,8 @@
 
 namespace App\Model;
 
-use App\Calculator\Calculatable;
 use App\Calculator\OperatorList;
+use RuntimeException;
 
 class Calculation
 {
@@ -22,6 +22,8 @@ class Calculation
         foreach ($operators->get() as $name=>$operatorClass) {
             $this->operators[$operatorClass::getDisplayOperation()] = $name;
         }
+
+        $this->namesToOperations = array_flip($this->operators); 
     }
 
     public function getAvailableOperations(): array
@@ -57,6 +59,17 @@ class Calculation
         return $this->operation;
     }
 
+    public function getOperationByName(): string
+    {
+        $name = $this->getOperation();
+        
+        if (!isset($this->namesToOperations[$name])) {
+            throw new RuntimeException('Unknown math operation');
+        }
+        
+        return $this->namesToOperations[$name];
+    }
+    
     /**
      * @param mixed $operation
      */
