@@ -23,6 +23,6 @@ class Addition implements Calculatable
 
     public function match(string $name): bool
     {
-        return false;
+        return $name === self::getName();
     }
 }

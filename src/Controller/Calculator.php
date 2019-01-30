@@ -33,14 +33,13 @@ class Calculator extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            dump($form->getData());
             /** @var Calculation $calc */
             $calc = $form->getData();
             $result = [
                 'variable_a' => $calc->getVariableA(),
                 'operator' => $calc->getOperationByName(),
                 'variable_b' => $calc->getVariableB(),
-                'calculationResult' => $calc->getVariableA() + $calc->getVariableB(),
+                'calculationResult' => $this->doCalculation($calc),
             ];
         }
         
@@ -52,5 +51,22 @@ class Calculator extends AbstractController
                 'result' => $result ?? [],
             ]
         );
+    }
+
+    private function doCalculation(Calculation $calculation)
+    {
+        $knownOperations = $this->operators->get();
+
+        /**
+         * @var string $operation
+         * @var \App\Calculator\Calculatable $operationClass
+         */
+        foreach ($knownOperations as $operation=>$operationClass) {
+            if ($operationClass->match($calculation->getOperation())) {
+                return $operationClass->calculate([$calculation->getVariableA(), $calculation->getVariableB()]);
+            }
+        }
+ 
+        throw new \RuntimeException('Unknown operation');
     }
 }
